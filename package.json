@@ -2,7 +2,6 @@
   "name": "ai-image",
   "version": "1.0.0",
   "type": "module",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,6 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "openai": "^5.1.0"
-  }
+    "aws-sdk": "^2.1692.0",
+    "body-parser": "^2.2.0",
+    "cloudinary": "^2.6.1",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2",
+    "openai": "^5.1.1",
+    "sharp": "^0.34.2"
+  },
+  "description": ""
 }
