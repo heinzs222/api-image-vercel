@@ -3,11 +3,15 @@ import OpenAI from "openai";
 import { v2 as cloudinary } from "cloudinary";
 
 export default async function handler(req, res) {
-  // CORS for any site — tighten to your own domain in production
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  // --- CORS ----------------------------------------------------
+  res.setHeader("Access-Control-Allow-Origin", "https://printshopmtl.com");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Max-Age", "86400"); // cache pre-flight 1 day
 
+  if (req.method === "OPTIONS") {
+    return res.status(200).end(); // pre-flight handled, stop here
+  }
   if (req.method === "OPTIONS") return res.status(200).end(); // pre-flight
 
   if (req.method !== "POST")
@@ -15,6 +19,10 @@ export default async function handler(req, res) {
 
   const prompt = (req.body?.prompt || "").trim();
   if (!prompt) return res.status(400).json({ error: "prompt required" });
+  console.log("🪵 received", {
+    body: req.body,
+    env: process.env.OPENAI_API_KEY?.slice(0, 5),
+  });
 
   try {
     // Init clients (pull from env runtime-side)
